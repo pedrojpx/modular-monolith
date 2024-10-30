@@ -41,4 +41,25 @@ describe("product adm face test", () => {
         expect(found.purchasePrice).toBe(input.purchasePrice)
         expect(found.stock).toBe(input.stock)
     })
+
+    it("should create a product", async() => {
+        const facade = ProductAdmFacadeFactory.create()
+
+        const input = {
+            id: "1",
+            name: "Product 1",
+            description: "Product 1 description",
+            purchasePrice: 100,
+            stock: 100
+        }
+
+        await facade.addProduct(input)
+
+        const output = await facade.checkStock({productId: input.id})
+
+        const found = await ProductModel.findOne({where: {id: 1}})
+        expect(output).toBeDefined()
+        expect(found.id).toBe(output.productId)
+        expect(found.stock).toBe(output.stock)
+    })
 })
