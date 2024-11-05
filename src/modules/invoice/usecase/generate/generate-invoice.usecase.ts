@@ -25,6 +25,7 @@ export default class GenerateInvoiceUseCase implements UseCaseInterface {
         })
 
         const invoice = new Invoice({
+            id: new Id(input.id),
             document: input.document,
             name: input.name,
             address: address,
