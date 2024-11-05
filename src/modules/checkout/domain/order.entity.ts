@@ -39,4 +39,8 @@ export default class Order extends BaseEntity {
             return total + product.salesPrice
         }, 0)
     }
+
+    approved() {
+        this._status = "approved"
+    }
 }
