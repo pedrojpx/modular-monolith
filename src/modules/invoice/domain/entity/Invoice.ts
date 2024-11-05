@@ -1,3 +1,4 @@
+import { createSecureContext } from "tls";
 import AggregateRoot from "../../../@shared/domain/entity/aggregate-root.interface";
 import BaseEntity from "../../../@shared/domain/entity/base.entity";
 import Id from "../../../@shared/domain/value-object/id.value-object";
@@ -26,6 +27,28 @@ export default class Invoice extends BaseEntity implements AggregateRoot {
         this._document = p.document
         this._address = p.address
         this._items = p.items
+    }
+
+    get name(): string {
+        return this._name
+    }
+
+    get document(): string {
+        return this._document
+    }
+
+    get address(): Address {
+        return this._address
+    }
+    
+    get items(): InvoiceItem[] {
+        return this._items
+    }
+
+    get total(): number {
+        return this._items
+                .map(item => item.price)
+                .reduce((acc, current) => acc + current)
     }
 }
 
